@@ -132,24 +132,50 @@ int main(void)
 	{
 		snprintf(trans_str, 64, "Code: HEX %p DEC %lu\r\n", (void*)results.value, results.value);
 		HAL_UART_Transmit(&huart1, (uint8_t*)trans_str, strlen(trans_str), 100);
-		HAL_Delay(300);
+//		HAL_Delay(50);
 		ir_resume();
-//	}
 
-		keyboardhid.MODIFIER = 0x02;  // left shift pressed
-		keyboardhid.KEYCODE1 = 0x04;  // press 'a'
-//
-//
-////		keyboardhid.MODIFIER = 0x08;
-//		keyboardhid.KEYCODE1 = 0x20;
+		if (results.value == 0xd7e84b1b) {
+			keyboardhid.KEYCODE1 = 0x4F; // Right
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
 
-		USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-		HAL_Delay (50);
-		keyboardhid.MODIFIER = 0x00;  // shift release
-		keyboardhid.KEYCODE1 = 0x00;  // release key
-		USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		else if (results.value == 0x52a3d41f) {
+			keyboardhid.KEYCODE1 = 0x50; // Left
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
 
-//		HAL_Delay (500);
+		else if (results.value == 0xa3c8eddb) {
+			keyboardhid.KEYCODE1 = 0x52; // Up
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
+
+		else if (results.value == 0xf076c13b) {
+			keyboardhid.KEYCODE1 = 0x51; // Down
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
+
+		else if (results.value == 0x20fe4dbb) {
+			keyboardhid.KEYCODE1 = 0x2C; // Space
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
+
+		else if (results.value == 0xe5cfbd7f) {
+			keyboardhid.KEYCODE1 = 0x10; // M
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
+
+		else if (results.value == 0x97483bfb) {
+			keyboardhid.KEYCODE1 = 0x09; // F
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+		}
+
+
+			HAL_Delay (50);
+			keyboardhid.MODIFIER = 0x00;  // shift release
+			keyboardhid.KEYCODE1 = 0x00;  // release key
+			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+
 	}
     /* USER CODE END WHILE */
 
