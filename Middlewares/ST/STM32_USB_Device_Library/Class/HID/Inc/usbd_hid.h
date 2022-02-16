@@ -47,7 +47,7 @@ extern "C" {
 #define USB_HID_CONFIG_DESC_SIZ       34U
 #define USB_HID_DESC_SIZ              9U
 
-#define HID_KEYBOARD_REPORT_DESC_SIZE    98U
+#define HID_KEYBOARD_REPORT_DESC_SIZE  106U
 
 #define HID_DESCRIPTOR_TYPE           0x21U
 #define HID_REPORT_DESC               0x22U

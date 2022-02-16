@@ -76,7 +76,7 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
 
 typedef struct
 {
-	uint8_t ID;
+	uint8_t REPORT_ID;
 	uint8_t MODIFIER;
 	uint8_t RESERVED;
 	uint8_t KEYCODE1;
@@ -90,11 +90,11 @@ typedef struct
 keyboardHID keyboardhid = {0,0,0,0,0,0,0,0,0};
 
 typedef struct {
-	uint8_t report_id;
-	uint8_t media_pimpochki;
-} media_pimpochki_t;
+	uint8_t REPORT_ID;
+	uint8_t MEDIAKEY;
+} mediaHID;
 
-media_pimpochki_t pimpim = {2, 0};
+mediaHID mediahid = {2, 0};
 
 
 /* USER CODE END 0 */
@@ -187,111 +187,148 @@ int main(void)
 //			}
 
 
+			if (results.value == 0x9716be3f) { // 1
 
-
-
-
-
-			if (results.value == 0x20fe4dbb) { // Play/Pause
-
-				pimpim.media_pimpochki = 0x01;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-			}
-
-			else if (results.value == 0xe5cfbd7f) { // Mute
-				pimpim.media_pimpochki = 0x02;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-			}
-
-			else if (results.value == 0x52a3d41f) { // Prev
-
-				pimpim.media_pimpochki = 0x04;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-			}
-
-
-			else if (results.value == 0xd7e84b1b) { // Next
-
-				pimpim.media_pimpochki = 0x05;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-			}
-
-
-
-
-			else if (results.value == 0x9716be3f) { // 1
-
-				pimpim.media_pimpochki = 0x01;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x01;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x3d9ae3f7) { // 2
 
-				pimpim.media_pimpochki = 0x02;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x02;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x6182021b) { // 3
 
-				pimpim.media_pimpochki = 0x03;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x03;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x8c22657b) { // 4
 
-				pimpim.media_pimpochki = 0x04;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x04;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x488f3cbb) { // 5
 
-				pimpim.media_pimpochki = 0x05;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x05;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x449e79f) { // 6
 
-				pimpim.media_pimpochki = 0x06;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x06;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 			else if (results.value == 0x32c6fdf7) { // 7
 
-				pimpim.media_pimpochki = 0x07;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
-				HAL_Delay(30);
-				pimpim.media_pimpochki = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &pimpim, sizeof(pimpim));
+				mediahid.MEDIAKEY = 0x07;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0x1bc0157b) { // 8
+
+				mediahid.MEDIAKEY = 0x08;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0x3ec3fc1b) { // 9
+
+				mediahid.MEDIAKEY = 0x09;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0xc101e57b) { // 10 0
+
+				mediahid.MEDIAKEY = 0x0A;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0x97483bfb) { // 11 +100
+
+				mediahid.MEDIAKEY = 0x0B;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0xf0c41643) { // 12 +200
+
+				mediahid.MEDIAKEY = 0x0C;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0xe318261b) { // 13 CH-
+
+				mediahid.MEDIAKEY = 0x0D;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0x511dbb) { // 14 CH
+
+				mediahid.MEDIAKEY = 0x0E;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0xee886d7f) { // 15 CH+
+
+				mediahid.MEDIAKEY = 0x0F;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+			}
+
+			else if (results.value == 0x52a3d41f) { // 16 PREV
+
+				mediahid.MEDIAKEY = 0x0F;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				HAL_Delay(50);
+				mediahid.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
 			}
 
 
