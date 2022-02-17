@@ -29,15 +29,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define HID_MEDIA_PAUSE  0xB1 // pause
-#define HID_MEDIA_RECORD  0xB3
-#define HID_MEDIA_SCAN_NEXT 0xB5
-#define HID_MEDIA_SCAN_PREV 0xB6
-#define HID_MEDIA_STOP  0xB7
-#define HID_MEDIA_EJECT 0xB8
-#define HID_MEDIA_VOL_UP 0xE9
-#define HID_MEDIA_VOL_DONW 0xEA
-#define HID_MEDIA_PLAY  0xCD // play/pause
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -79,23 +71,23 @@ typedef struct
 	uint8_t REPORT_ID;
 	uint8_t MODIFIER;
 	uint8_t RESERVED;
-	uint8_t KEYCODE1;
-	uint8_t KEYCODE2;
-	uint8_t KEYCODE3;
-	uint8_t KEYCODE4;
-	uint8_t KEYCODE5;
-	uint8_t KEYCODE6;
+	uint8_t KEYCODE_1;
+	uint8_t KEYCODE_2;
+	uint8_t KEYCODE_3;
+	uint8_t KEYCODE_4;
+	uint8_t KEYCODE_5;
+	uint8_t KEYCODE_6;
 } keyboardHID;
 
-keyboardHID keyboardhid = {0,0,0,0,0,0,0,0,0};
+keyboardHID keyboard = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 typedef struct {
 	uint8_t REPORT_ID;
-	uint8_t MEDIAKEY;
-} mediaHID;
+	uint8_t MEDIAKEY_1;
+	uint8_t MEDIAKEY_2;
+} mediakeyHID;
 
-mediaHID mediahid = {2, 0};
-
+mediakeyHID mediakey = { 2, 0, 0 };
 
 /* USER CODE END 0 */
 
@@ -143,222 +135,114 @@ int main(void)
 	/* USER CODE BEGIN WHILE A*/
 	while (1)
 	{
-
 		if(ir_decode(&results))
 		{
 			snprintf(trans_str, 64, "Code: HEX %p DEC %lu\r\n", (void*)results.value, results.value);
 			HAL_UART_Transmit(&huart1, (uint8_t*)trans_str, strlen(trans_str), 100);
-			//		HAL_Delay(50);
+			HAL_Delay(50);
 			ir_resume();
 
-//			if (results.value == 0xd7e84b1b) {
-//				keyboardhid.ID = 1;
-//				keyboardhid.KEYCODE1 = 0x4F; // Right
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
-//
-//			else if (results.value == 0x52a3d41f) {
-//				keyboardhid.ID = 1;
-//				keyboardhid.KEYCODE1 = 0x50; // Left
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
+			if (results.value == 0x9716be3f) { 		// 0x01
 
-//			else if (results.value == 0xa3c8eddb) {
-//				keyboardhid.ID = 1;
-//				keyboardhid.KEYCODE1 = 0x52; // Up
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
-//
-//			else if (results.value == 0xf076c13b) {
-//				keyboardhid.ID = 1;
-//				keyboardhid.KEYCODE1 = 0x51; // Down
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
-
-//			else if (results.value == 0x20fe4dbb) {
-//				keyboardhid.ID = 1;
-//				keyboardhid.KEYCODE1 = 0x2C; // Space
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
-
-//			else if (results.value == 0x97483bfb) {
-//				keyboardhid.KEYCODE1 = 0x09; // F
-//				USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
-//			}
-
-
-			if (results.value == 0x9716be3f) { // 1
-
-				mediahid.MEDIAKEY = 0x01;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x01;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x3d9ae3f7) { // 2
+			else if (results.value == 0x3d9ae3f7) { // 0x02
 
-				mediahid.MEDIAKEY = 0x02;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x02;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x6182021b) { // 3
+			else if (results.value == 0x6182021b) { // 0x03
 
-				mediahid.MEDIAKEY = 0x03;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x03;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x8c22657b) { // 4
+			else if (results.value == 0x8c22657b) { // 0x04
 
-				mediahid.MEDIAKEY = 0x04;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x04;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x488f3cbb) { // 5
+			else if (results.value == 0x488f3cbb) { // 0x05
 
-				mediahid.MEDIAKEY = 0x05;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x05;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x449e79f) { // 6
-
-				mediahid.MEDIAKEY = 0x06;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x32c6fdf7) { // 7
-
-				mediahid.MEDIAKEY = 0x07;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x1bc0157b) { // 8
-
-				mediahid.MEDIAKEY = 0x08;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x3ec3fc1b) { // 9
-
-				mediahid.MEDIAKEY = 0x09;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0xc101e57b) { // 10 0
-
-				mediahid.MEDIAKEY = 0x0A;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x97483bfb) { // 11 +100
-
-				mediahid.MEDIAKEY = 0x0B;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0xf0c41643) { // 12 +200
-
-				mediahid.MEDIAKEY = 0x0C;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0xe318261b) { // 13 CH-
-
-				mediahid.MEDIAKEY = 0x0D;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x511dbb) { // 14 CH
-
-				mediahid.MEDIAKEY = 0x0E;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0xee886d7f) { // 15 CH+
-
-				mediahid.MEDIAKEY = 0x0F;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-			}
-
-			else if (results.value == 0x52a3d41f) { // 16 PREV
-
-				mediahid.MEDIAKEY = 0x0F;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
-				HAL_Delay(50);
-				mediahid.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediahid, sizeof(mediahid));
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
 
-				//			keyboardhid.KEYCODE1 = 0xe0; //
-				//			keyboardhid.KEYCODE2 = 0x34;
-				//			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+			else if (results.value == 0x449e79f) { // 0x06
+
+				mediakey.MEDIAKEY_1 = 0x06;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+				HAL_Delay(50);
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+			}
+
+
+			else if (results.value == 0x32c6fdf7) { // 0x07
+
+				mediakey.MEDIAKEY_1 = 0x07;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+				HAL_Delay(50);
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+			}
+
+			else if (results.value == 0x1bc0157b) { // 0x08
+
+				mediakey.MEDIAKEY_1 = 0x08;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+				HAL_Delay(50);
+				mediakey.MEDIAKEY_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+			}
+
+
+			//			keyboard.KEYCODE1 = 0xe0; //
+			//			keyboard.KEYCODE2 = 0x34;
+			//			USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 
 
 
-				//			    uint8_t report[3];
-				//			    report[0]= 2; //HID_MEDIA_REPORT;
-				//			    report[1]= HID_MEDIA_VOL_DONW;
-				//			    report[2]= 0x00;
-				//			    USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
-				//			    HAL_Delay(50);
-				//
-				//			    report[0]= 2; //HID_MEDIA_REPORT;
-				//			    report[1]= 0x00;
-				//			    report[2]= 0x00;
-				//			    USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
+			//			    uint8_t report[3];
+			//			    report[0]= 2; //HID_MEDIA_REPORT;
+			//			    report[1]= HID_MEDIA_VOL_DONW;
+			//			    report[2]= 0x00;
+			//			    USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
+			//			    HAL_Delay(50);
+			//
+			//			    report[0]= 2; //HID_MEDIA_REPORT;
+			//			    report[1]= 0x00;
+			//			    report[2]= 0x00;
+			//			    USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
 
 
 
-
-			HAL_Delay (30);
-			keyboardhid.MODIFIER = 0x00;  // shift release
-			keyboardhid.KEYCODE1 = 0x00;  // release key
-			keyboardhid.KEYCODE2 = 0x00;
-			keyboardhid.KEYCODE3 = 0x00;
-			USBD_HID_SendReport(&hUsbDeviceFS, &keyboardhid, sizeof (keyboardhid));
+//			HAL_Delay (30);
+//			keyboard.MODIFIER = 0x00;  // shift release
+//			keyboard.KEYCODE_1 = 0x00;  // release key
+//			keyboard.KEYCODE_2 = 0x00;
+//			keyboard.KEYCODE_3 = 0x00;
+//			USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 
 		}
 		/* USER CODE END WHILE */
