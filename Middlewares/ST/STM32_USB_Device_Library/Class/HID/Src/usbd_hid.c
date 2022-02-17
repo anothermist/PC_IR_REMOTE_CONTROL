@@ -320,9 +320,7 @@ __ALIGN_BEGIN static uint8_t HID_Keyboard_ReportDesc[HID_KEYBOARD_REPORT_DESC_SI
 	    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
 	    0x09, 0x06,                    // USAGE (Keyboard)
 	    0xa1, 0x01,                    // COLLECTION (Application)
-
-		0x85, 0x01,
-
+		0x85, 0x01,					   // // Report ID=1
 	    0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
 	    0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)
 	    0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)
@@ -353,37 +351,6 @@ __ALIGN_BEGIN static uint8_t HID_Keyboard_ReportDesc[HID_KEYBOARD_REPORT_DESC_SI
 	    0x81, 0x00,                    //   INPUT (Data,Ary,Abs)
 	    0xc0,                           // END_COLLECTION
 
-//	    0x05, 0x0C, // Usage Page (Consumer Devices)
-//	    0x09, 0x01, // Usage (Consumer Control)
-//	    0xA1, 0x01, // Collection (Application)
-//	    0x85, 0x02, // Report ID=2
-//	    0x05, 0x0C, // Usage Page (Consumer Devices)
-//	    0x15, 0x00, // Logical Minimum (0)
-//	    0x25, 0x01, // Logical Maximum (1)
-//	    0x75, 0x01, // Report Size (1)
-//	    0x95, 0x10, // Report Count (16)
-
-//	    0x09, 0xea,	// USAGE 0x01 - OK: VOL-
-//	    0x09, 0xe9,	// USAGE 0x02 - OK: VOL+
-//	    0x09, 0x00, // USAGE 0x03 - not work
-//	    0x09, 0xe2, // USAGE 0x04 - OK: MUTE
-//	    0x09, 0x00, // USAGE 0x05 - not work
-//	    0x09, 0x00, // USAGE 0x06 - not work
-//	    0x09, 0x00, // USAGE 0x07 - not work - work how 0x01 o.0
-//		0x09, 0xCD, // USAGE 0x08 - OK: PLAY/PAUSE
-
-//		0x09, 0x00, // USAGE 0x09 - not work
-//		0x09, 0x00, // USAGE 0x0a - not work
-//		0x09, 0xb5, // USAGE 0x0b - not work - work how 0x01 o.0
-//		0x09, 0x00, // USAGE 0x0c - not work
-//		0x09, 0xb6, // USAGE 0x0d - not work - work how 0x01 o.0
-//		0x09, 0xb5, // USAGE 0x0e - not work - work how 0x02 o.0
-//		0x09, 0x00, // USAGE 0x0f - not work
-//		0x09, 0x00, // USAGE 0x10 - not work
-
-//	    0x81, 0x62, // INPUT (Data,Var,Abs,NPrf,Null)
-//	    0xC0,       // End Collection
-
 	    0x05, 0x0C, // Usage Page (Consumer Devices)
 	    0x09, 0x01, // Usage (Consumer Control)
 	    0xA1, 0x01, // Collection (Application)
@@ -394,17 +361,18 @@ __ALIGN_BEGIN static uint8_t HID_Keyboard_ReportDesc[HID_KEYBOARD_REPORT_DESC_SI
 	    0x75, 0x01, // Report Size
 		0x95, 0x08, // Report Count
 
-	    0x09, 0xEA,	// USAGE 0x01 - OK: VOL- заебись, кнопка работает
-	    0x09, 0xE9,	// USAGE 0x02 - OK: VOL+ заебись, тоже работает !!
-	    0x09, 0xB7, // USAGE 0x03 - типа, здесь должен быть STOP, но 3 элемент - не работает вообще!
-	    0x09, 0xE2, // USAGE 0x04 - теперь работает, как 0x03 (но если на месте 3 элемента поставить 0х00 - будет адекватно)
-	    0x09, 0xB6, // USAGE 0x05 - типа PREV, но 0x05 не робит нихуя вообще
-	    0x09, 0xB5, // USAGE 0x06 - типа NEXT, но 0x06 не робит нихуя вообще
-	    0x09, 0xB7, // USAGE 0x07 - работает как 1 элемент
-		0x09, 0xCD, // USAGE 0x08 - работает как 4 элемент
+	    0x09, 0xEA,	// VOL-
+	    0x09, 0xE9,	// VOL+
+	    0x09, 0xE2, // MUTE
+	    0x09, 0xB6, // PREV
+	    0x09, 0xB5, // NEXT
+	    0x09, 0xCD, // PLAY
+	    0x09, 0xB7, // STOP
+		0x09, 0xB1, // PAUSE
+
 		0x81, 0x02,
-		0x95, 0x00, // неиспользуемых бита
-		0x81, 0x01,
+//		0x95, 0x00, // неиспользуемых бита
+//		0x81, 0x01,
 	    0xC0,       // End Collection
 };
 
