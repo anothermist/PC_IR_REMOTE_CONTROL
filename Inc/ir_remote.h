@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include "main.h"
 
-extern TIM_HandleTypeDef htim4;
+#define TIMER htim4
+
+extern TIM_HandleTypeDef TIMER;
 
 #define RECIV_PIN (HAL_GPIO_ReadPin(IR_Receiver_GPIO_Port, IR_Receiver_Pin))
 

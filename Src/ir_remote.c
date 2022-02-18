@@ -4,7 +4,7 @@ volatile irparams_t irparams;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(htim == &htim4)
+	if(htim == &TIMER)
 	{
 		uint8_t irdata = RECIV_PIN;
 
@@ -88,8 +88,8 @@ void ir_enableIRIn()
 	irparams.rcvstate = STATE_IDLE;
 	irparams.rawlen = 0;
 
-	__HAL_TIM_SET_COUNTER(&htim4, 0x0000);
-	HAL_TIM_Base_Start_IT(&htim4);
+	__HAL_TIM_SET_COUNTER(&TIMER, 0x0000);
+	HAL_TIM_Base_Start_IT(&TIMER);
 }
 
 void ir_resume() // Restart the ISR state machine
