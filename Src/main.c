@@ -143,7 +143,7 @@ int main(void)
 			HAL_Delay(50);
 			ir_resume();
 
-			if (results.value == 0xa3c8eddb) { // Button: "[VOL-]"
+			if (results.value == 0xd538681b) {
 				mediakey.MEDIAKEY = 0b0000000000000001; // Command: "Volume -"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -151,7 +151,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0xe5cfbd7f) { // Button: "[VOL+]"
+			else if (results.value == 0x8c22657b) {
 				mediakey.MEDIAKEY = 0b0000000000000010; // Command: "Volume +"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -159,7 +159,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0xee886d7f) { // Button: "[X]"
+			else if (results.value == 0x51e43d1b) {
 				mediakey.MEDIAKEY = 0b0000000000000100; // Command: "Mute"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -167,7 +167,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0xd7e84b1b) { // Button: "[<<]"
+			else if (results.value == 0xab91951f) {
 				mediakey.MEDIAKEY = 0b0000000000001000; // Command: "Prev"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -175,7 +175,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x20fe4dbb) { // Button:"[>>]"
+			else if (results.value == 0xff9186b7) {
 				mediakey.MEDIAKEY = 0b0000000000010000; // Command: "Next"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -183,7 +183,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x52a3d41f) { // Button: "[>II]"
+			else if (results.value == 0xdc0197db) {
 				mediakey.MEDIAKEY = 0b0000000000100000; // Command "Play/Pause"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -191,7 +191,15 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0xf0c41643) { // Button: "[U/SD]"
+			else if (results.value == 0x86b0e697) { // Button: "[RPT]"
+				mediakey.MEDIAKEY = 0b0000000010000000; // Command: "Play"
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+				HAL_Delay(50);
+				mediakey.MEDIAKEY = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
+			}
+
+			else if (results.value == 0x488f3cbb) { // Button: "[[]]"
 				mediakey.MEDIAKEY = 0b0000000001000000; // Command: "Stop"
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 				HAL_Delay(50);
@@ -199,13 +207,6 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 
-			else if (results.value == 0x97483bfb) { // Button: "[RPT]"
-				mediakey.MEDIAKEY = 0b0000000010000000; // Command: "Play"
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
-				HAL_Delay(50);
-				mediakey.MEDIAKEY = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
-			}
 /*
 			else if (results.value == 0x00ff00) { // RESERVED MEDIA BUTTON
 				mediakey.MEDIAKEY = 0b0000000100000000;
@@ -273,7 +274,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &mediakey, sizeof(mediakey));
 			}
 */
-			else if (results.value == 0x3d9ae3f7) { // Button: "[2]"
+			else if (results.value == 0x35a9425f) {
 				keyboard.KEYCODE_1 = 0x52; // Command: "Up"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -283,7 +284,7 @@ int main(void)
 			}
 
 
-			else if (results.value == 0x8c22657b) { // Button: "[4]"
+			else if (results.value == 0x9ef4941f) {
 				keyboard.KEYCODE_1 = 0x50; // Command: "Left"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -292,16 +293,8 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0x488f3cbb) { // Button: "[5]"
-				keyboard.KEYCODE_1 = 0x28; // Command: "Enter"
-				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
-				HAL_Delay (50);
-				keyboard.MODIFIER = 0x00;
-				keyboard.KEYCODE_1 = 0x00;
-				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
-			}
 
-			else if (results.value == 0x449e79f) { // Button: "[6]"
+			else if (results.value == 0x8e5d3ebb) {
 				keyboard.KEYCODE_1 = 0x4F; // Command: "Right"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -310,7 +303,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0x1bc0157b) { // Button: "[8]"
+			else if (results.value == 0xa3c8eddb) {
 				keyboard.KEYCODE_1 = 0x51; // Command: "Down"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -319,7 +312,16 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0x3ec3fc1b) { // Button: "[9]"
+			else if (results.value == 0xf377c5b7) {
+				keyboard.KEYCODE_1 = 0x28; // Command: "Enter"
+				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
+				HAL_Delay (50);
+				keyboard.MODIFIER = 0x00;
+				keyboard.KEYCODE_1 = 0x00;
+				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
+			}
+
+			else if (results.value == 0xc101e57b) {
 				keyboard.KEYCODE_1 = 0x29; // Command: "Esc"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -328,7 +330,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0x511dbb/*0xe318261b*/) { // Button: "[Mode]"
+			else if (results.value == 0x5be75e7f) {
 				keyboard.KEYCODE_1 = 0x09; // [OFF] Command: "F"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -337,7 +339,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0xc101e57b ) { // Button "[0]"
+			else if (results.value == 0x97483bfb ) {
 				keyboard.KEYCODE_1 = 0x2C; // Command: "Space"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
@@ -346,7 +348,7 @@ int main(void)
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 			}
 
-			else if (results.value == 0x32c6fdf7) {
+			else if (results.value == 0x3d9ae3f7) {
 				keyboard.KEYCODE_1 = 0x2B; // Command: "Tab"
 				USBD_HID_SendReport(&hUsbDeviceFS, &keyboard, sizeof (keyboard));
 				HAL_Delay (50);
