@@ -50,4 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-/Debug/
+
+# Ignore all in Debug and Release...
+Debug/*
+Release/*
+
+# …exclude hex
+!Debug/*.bin
+!Debug/*.hex
+!Release/*.bin
+!Release/*.hex
